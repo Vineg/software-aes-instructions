@@ -8,6 +8,34 @@
 
 #include "aes.h"
 
+/*
+ * Multiplication in GF(2^8)
+ * http://en.wikipedia.org/wiki/Finite_field_arithmetic
+ * Irreducible polynomial m(x) = x8 + x4 + x3 + x + 1
+ *
+ * NOTE: This function can be easily replaced with a look up table for a speed 
+ *       boost, at the expense of an increase in memory size (around 65 KB). See
+ *       the aes.h header file to find the macro definition.
+
+uint8_t gmult(uint8_t a, uint8_t b) {
+	uint8_t p = 0, i = 0, hbs = 0;
+
+	for (i = 0; i < 8; i++) {
+		if (b & 1) {
+			p ^= a;
+		}
+
+		hbs = a & 0x80;
+		a <<= 1;
+		if (hbs) a ^= 0x1b; // 0000 0001 0001 1011	
+		b >>= 1;
+	}
+
+	return (uint8_t)p;
+}
+*/
+
+
 uint8_t gmult_lookup_table[8][256] = {
 { // gmult(0x02, b);
 	0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e, 0x10, 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e, 
@@ -155,33 +183,6 @@ uint8_t gmult_lookup_table[8][256] = {
 	0xca, 0xc1, 0xdc, 0xd7, 0xe6, 0xed, 0xf0, 0xfb, 0x92, 0x99, 0x84, 0x8f, 0xbe, 0xb5, 0xa8, 0xa3, 
 }
 };
-
-/*
- * Multiplication in GF(2^8)
- * http://en.wikipedia.org/wiki/Finite_field_arithmetic
- * Irreducible polynomial m(x) = x8 + x4 + x3 + x + 1
- *
- * NOTE: This function can be easily replaced with a look up table for a speed 
- *       boost, at the expense of an increase in memory size (around 65 KB). See
- *       the aes.h header file to find the macro definition.
-
-uint8_t gmult(uint8_t a, uint8_t b) {
-	uint8_t p = 0, i = 0, hbs = 0;
-
-	for (i = 0; i < 8; i++) {
-		if (b & 1) {
-			p ^= a;
-		}
-
-		hbs = a & 0x80;
-		a <<= 1;
-		if (hbs) a ^= 0x1b; // 0000 0001 0001 1011	
-		b >>= 1;
-	}
-
-	return (uint8_t)p;
-}
-*/
 
 /*
  * Multiplication of 4 byte words
