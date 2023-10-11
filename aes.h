@@ -7,7 +7,6 @@
  */
 
 #include <stdint.h>
-#include <stdlib.h>
 
 /*
  * Multiplication in GF(2^8)
@@ -16,8 +15,7 @@
  * 
  * NOTE: we are using the look up table instead of the (slower) gmult function
  */
-#define gmult(a,b) gmult_aes[256*a + b]
 
-void aes_inv_cipher(uint8_t *in, uint8_t *out, uint8_t *w);
+void soft_aesdec(uint8_t *in, uint8_t *out, uint8_t *w);
 
-void aes_cipher(uint8_t *in, uint8_t *out, uint8_t *w);
+void soft_aesenc(uint8_t *in, uint8_t *out, uint8_t *w);
