@@ -1,7 +1,7 @@
 AES
 ===
 
-AES algorithm implementation using C. Check out [this other repo](https://github.com/dhuertas/block-cipher-modes.git) on how to use it with different modes of operation.
+_mm_aesdec_si128 and _mm_aesenc_si128 AES instructions emulation in C.
 
 # Example
 
@@ -13,10 +13,10 @@ And run:
 
 ```bash
 ./aes
-Plaintext message:
-00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff
-Ciphered message:
-8e a2 b7 ca 51 67 45 bf ea fc 49 90 4b 49 60 89
-Original message (after inv cipher):
-00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff
+Original message:
+00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff 
+soft_aesenc:
+48 07 f3 cf dc c9 29 d0 06 f1 29 7c db 24 c5 9f 
+soft_aesdec:
+f6 99 15 d7 0a df eb ce a3 f9 23 2b 6a 36 0e 8c 
 ```
