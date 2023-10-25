@@ -211,7 +211,7 @@ void coef_mult_lookup(int lookup_table_offset, uint8_t *b, uint8_t *d) {
  * Number of columns (32-bit words) comprising the State. For this 
  * standard, Nb = 4.
  */
-int Nb = 4;
+#define Nb 4
 
 /*
  * S-box transformation table
@@ -457,3 +457,4 @@ void soft_aesdec(uint8_t *in, uint8_t *out, uint8_t *w) {
 	}
 }
 
+#undef Nb
